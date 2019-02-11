@@ -63,6 +63,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 	private int spinnerVal; //removing value for spinner
 	private ArrayList<String> bookCart = new ArrayList<String>();
 	GridBagConstraints layoutConst = null;
+	NumberFormat currency = NumberFormat.getCurrencyInstance();
 	
 
 	GUIShoppingCart() {
@@ -76,10 +77,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		int buyMin = 1;
 		int buyMax = 10;
 		int buyInit = 1;
-		
-		//variable for slider
-		
-		
+				
 								
 		//Create the JSpinner
 		SpinnerNumberModel spinnerModel = null;
@@ -125,7 +123,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		listScroller = new JScrollPane(shoppingCart);
 		shoppingCart.setEditable(false);
 		
-		NumberFormat currency = NumberFormat.getCurrencyInstance();
+		
 		costBox = new JFormattedTextField(currency);
 		costBox.setEditable(false);
 		costBox.setColumns(10);
@@ -281,9 +279,12 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 						while (inFS.hasNext()) {
 							readLine = inFS.nextLine();
 							String [] bookArray = readLine.split(",");
+							
+							bookList.setValueAt(bookArray[0], bookCounter, 0);
+							bookList.setValueAt(bookArray[1], bookCounter, 1);
 												
-							tableContents[bookCounter][0] = (bookArray[0]);
-							tableContents[bookCounter][1] = (bookArray[1]);
+							/*tableContents[bookCounter][0] = (bookArray[0]);
+							tableContents[bookCounter][1] = (bookArray[1]);*/
 							bookCounter += 1;
 												
 						}
@@ -348,7 +349,11 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		}
 		
 		else if (sourceEvent == checkOut) {
-			JOptionPane.showMessageDialog(null, "Thank you for your purchase. \n Your total purchase was " + totalCost + "."
+			int tax = 6;
+			double totalTax = (totalCost + totalCost * (tax * .01));
+			
+			JOptionPane.showMessageDialog(null, "Thank you for your purchase. \n Your total purchase was " + currency.format(totalCost) + 
+										" with a tax of " + tax + "% . \n Your grand total is " + currency.format(totalTax)
 										+ " \n Please allow up to 3 years for delivery." );
 			System.exit(0);
 			
