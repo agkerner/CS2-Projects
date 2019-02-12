@@ -27,10 +27,6 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.TableColumn;
 
 /**
- * 
- */
-
-/**
  * @author andrew.kerner
  *
  */
@@ -54,7 +50,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 	private String[][] tableContents;
 	private JFormattedTextField costBox; //text field for total cost
 	private int bookCounter = 0;
-	private int x = 0;
+	int x;
 	private int sliderVal; //multiplying variable for slider
 	private ArrayList<Integer> sliderArray = new ArrayList<Integer>(); //subtracting multiplier
 	private ArrayList<Integer> bookIndex = new ArrayList<Integer>();
@@ -65,7 +61,6 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 	GridBagConstraints layoutConst = null;
 	NumberFormat currency = NumberFormat.getCurrencyInstance();
 	
-
 	GUIShoppingCart() {
 		//JSpinner variables
 		int initRemoveBook = 1;
@@ -77,8 +72,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		int buyMin = 1;
 		int buyMax = 10;
 		int buyInit = 1;
-				
-								
+										
 		//Create the JSpinner
 		SpinnerNumberModel spinnerModel = null;
 		spinnerModel = new SpinnerNumberModel(initRemoveBook, minRemove, maxRemove, stepVal);
@@ -91,9 +85,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		numBooks.setMinorTickSpacing(1);
 		numBooks.setPaintTicks(true);
 		numBooks.setPaintLabels(true);
-		
-		
-		
+				
 		//Title of the window
 		setTitle("Book purchaser");		
 		
@@ -102,8 +94,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		removeBookLabel = new JLabel("Book # to remove");
 		buyNumBooksLabel = new JLabel("Number of books to buy");
 		costLabel = new JLabel("Total cost");
-		
-		
+				
 		bookList = new JTable(10,0);
 		listScroller = new JScrollPane(bookList);
 		
@@ -122,8 +113,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		shoppingCart = new JTextArea(10, 10);
 		listScroller = new JScrollPane(shoppingCart);
 		shoppingCart.setEditable(false);
-		
-		
+				
 		costBox = new JFormattedTextField(currency);
 		costBox.setEditable(false);
 		costBox.setColumns(10);
@@ -135,12 +125,10 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		
 		columnHeadings = new String[2];
 		tableContents = new String[9][2];
-		
-				
+						
 		columnHeadings[0] = "Books";
 		columnHeadings[1] = "Price";
-		
-				
+						
 		bookList = new JTable(tableContents, columnHeadings);
 		
 		layoutConst = new GridBagConstraints();
@@ -245,9 +233,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 	      layoutConst.gridx = 1;
 	      layoutConst.gridy = 3;
 	      add(numBooks, layoutConst);
-	      
-        
-	  
+	              	  
 	}
 	
 	@Override
@@ -257,13 +243,12 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 		String readLine; //input from file
 		File readFile = null; //Input file
 		int fileChooserVal; // File chooser
-		
-		
-		JButton sourceEvent = (JButton) event.getSource();
 				
+		JButton sourceEvent = (JButton) event.getSource();
+			
+		//logic for opening a file
 		if (sourceEvent == openFileButton) {
 					
-		
 			// Open file chooser dialog and get the file to open
 			fileChooserVal = fileChooser.showOpenDialog(this);
 			
@@ -282,9 +267,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 							
 							bookList.setValueAt(bookArray[0], bookCounter, 0);
 							bookList.setValueAt(bookArray[1], bookCounter, 1);
-												
-							/*tableContents[bookCounter][0] = (bookArray[0]);
-							tableContents[bookCounter][1] = (bookArray[1]);*/
+													
 							bookCounter += 1;
 												
 						}
@@ -300,6 +283,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 			}
 		}
 		
+		//logic for adding a book to cart
 		else if (sourceEvent == selectBook) {
 			x += 1;
 			sliderVal = numBooks.getValue();
@@ -317,10 +301,10 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 				totalCost += (sliderVal * bookCost);
 				shoppingCart.append(formattedList);
 				costBox.setValue(totalCost);
-			
-			
+						
 		}
 		
+		//logic for removing a book from cart
 		else if (sourceEvent == removeBook) {
 			spinnerVal = (int) removeBookSelect.getValue();
 			if (spinnerVal > bookIndex.size()) {
@@ -348,6 +332,7 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 			
 		}
 		
+		//logic for purchasing books in cart
 		else if (sourceEvent == checkOut) {
 			int tax = 6;
 			double totalTax = (totalCost + totalCost * (tax * .01));
@@ -369,10 +354,6 @@ public class GUIShoppingCart extends JFrame implements ActionListener {
 	     shoppingList.pack();
 	     shoppingList.setVisible(true);
 		
-		
-
 	}
-
 	
-
 }
