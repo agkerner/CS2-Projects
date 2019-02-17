@@ -32,47 +32,31 @@ import javax.swing.table.TableColumn;
  */
 public class GUIShoppingCart extends JFrame implements ActionListener {
 	private JFileChooser fileChooser; //allows file selection
-	private JLabel outputLabel; //label for file contents
-	private JLabel cartLabel; //label for shopping cart
-	private JLabel removeBookLabel; //label for book removal spinner
-	private JLabel buyNumBooksLabel; //label for buy book slider
-	private JLabel costLabel; //label for total cost
+	private JLabel outputLabel, cartLabel, removeBookLabel, buyNumBooksLabel, costLabel; 
 	private JSpinner removeBookSelect; //choose book to remove from shopping cart
 	private JSlider numBooks; //number of books to purchase
-	private JButton openFileButton; //button to open file
-	private JButton selectBook; //adds a book to shopping cart
-	private JButton removeBook; //removes a book from shopping cart
-	private JButton checkOut; //purchases items in shopping cart
+	private JButton openFileButton, selectBook, removeBook, checkOut;
 	private JTextArea shoppingCart; //list of selected books
 	private JTable bookList; //table that holds titles and cost
 	private JScrollPane listScroller;
 	private String[] columnHeadings;
 	private String[][] tableContents;
 	private JFormattedTextField costBox; //text field for total cost
-	private int bookCounter = 0;
-	int x;
-	private int sliderVal; //multiplying variable for slider
+	private int bookCounter, sliderVal, spinnerVal, x;
 	private ArrayList<Integer> sliderArray = new ArrayList<Integer>(); //subtracting multiplier
 	private ArrayList<Integer> bookIndex = new ArrayList<Integer>();
-	private double totalCost; //total cost of purchases
-	private double bookCost; //cost of a single book
-	private int spinnerVal; //removing value for spinner
+	private double totalCost, bookCost; 
 	private ArrayList<String> bookCart = new ArrayList<String>();
 	GridBagConstraints layoutConst = null;
 	NumberFormat currency = NumberFormat.getCurrencyInstance();
 	
 	GUIShoppingCart() {
 		//JSpinner variables
-		int initRemoveBook = 1;
-		int minRemove = 1;
-		int maxRemove = 10;
-		int stepVal = 1;
-		
+		int initRemoveBook = 1, minRemove = 1, maxRemove = 10, stepVal = 1 ;
+				
 		//JSlider variables
-		int buyMin = 1;
-		int buyMax = 10;
-		int buyInit = 1;
-										
+		int buyMin = 1, buyMax = 10, buyInit = 1;
+												
 		//Create the JSpinner
 		SpinnerNumberModel spinnerModel = null;
 		spinnerModel = new SpinnerNumberModel(initRemoveBook, minRemove, maxRemove, stepVal);
